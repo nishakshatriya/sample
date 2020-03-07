@@ -3,10 +3,10 @@ const bodyparser = require('body-parser')
 const app = express();
 
 app.use(bodyparser.urlencoded({extended: true}))
-app.use(bodyparser.json)
+app.use(bodyparser.json())
 
-const mongoose = require('mongoose');
-mongoose.Promise=global.Promise;
+// const mongoose = require('mongoose');
+// mongoose.Promise=global.Promise;
 
 require('../SinonQuantityMeasurement (copy)/routes/routes')(app)
 

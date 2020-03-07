@@ -1,39 +1,26 @@
 var jsonFile = require("../model/model");
 module.exports = {
-  findAll(data, callback) {
-    var toType = data.firstUnit;
+  convert(data, callback) {
+    var toType = data.body.firstUnit;
     var fromType = data.secondUnit;
+    console.log("to typeeeee---->", data.body);
+    console.log("from type----->", fromType);
     if (data) {
-      var keys = Object.keys(jsonFile.unitType()[0]);
-      console.log("keys.....", keys);
-      var keys = Object.keys(keys);
-      console.log('asdfghjk------>',keys);
-      
-      
+      var result, unitValue;
+
+      var keys = Object.keys(jsonFile);
 
       for (var i = 0; i < keys.length; i++) {
-        console.log("in for loop keys", keys[i]);
-
         if (keys[i] == toType) {
-          console.log("in secind if loop");
-
-          var calculatedValue =
-            jsonFile.unitType()[0][keys[i]][fromType] * unitValue;
+          var retrieveKeys = Object.keys(jsonFile[keys[i]]);
+          for (var j = 0; j < retrieveKeys.length; j++) {
+            if (retrieveKeys[j] == fromType) {
+              result = jsonFile[keys[i]][retrieveKeys[j]] * unitValue;
+            }
+          }
+          return callback(null, result);
         }
       }
-      return callback(null, calculatedValue);
     }
   }
 };
-
-/*var jsonFile = require('./unitTypes');
-module.exports = {
-  unitConversion(fromType, toType, unitValue, callback) {
-    var keys = Object.keys(jsonFile.unitType()[0]);
-    for (var i = 0; i < keys.length; i++) {
-      if (keys[i] == toType) {
-        var calculatedValue = jsonFile.unitType()[0][keys[i]][fromType] * unitValue
-      }
-    }
-    return callback(null, calculatedValue);
-  } */

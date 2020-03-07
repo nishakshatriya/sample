@@ -1,45 +1,30 @@
-"use strict";
 
 var services = require('../services/services');
-// module.exports = {
-//     findData(fromType, toType, unitValue) {
-//         var result
-//         services.unitConversion(fromType, toType, unitValue, ((err, data) => {
-//             if (err) {
-//                 return false
-//             }
-//             console.log('data-------------->>>',data);
-//             result = data;
-//         }))
-//         return result
-//     }
-// };
 
-exports.findData = (req,res) => {
-    services.findAll(req,(function(err,data){
-        if(err){
-            res.status(500).send({
-                message: err.message || "something went wrong"
-            })
-        }
-        res.message = "Successful!!"
-        res.send(data)
-    }))
-}
-
-// exports.getingdata = (req,res) => {
+// exports.findData = (req,res) => {
 //     services.findAll(req,(function(err,data){
 //         if(err){
 //             res.status(500).send({
-//                 message: err.message || "wronggg"
+//                 message: err.message || "something went wrong"
 //             })
 //         }
-
-//     var result = {
-//         "fromType":"inch",
-//         "toType":"feet",
-//         "unitValue":"3"
-//     }
-//     res.send(data);
+//         res.message = "Successful!!"
+//         res.send(data)
 //     }))
 // }
+
+exports.getConversion = (req,res) => {
+    console.log('requested bodyyyyy----->',req.body);
+    
+
+    services.convert(req,(err,data) => {
+        if(err){
+            return res.send({err:err});
+        }
+        else{
+            return res.send({
+                message: "Successfull!", data:data
+            })
+        }
+    })
+}
